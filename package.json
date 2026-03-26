@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "build:pages": "vite build && node -e \"const fs=require('node:fs');fs.copyFileSync('dist/index.html','dist/404.html')\"",
+    "build:pages": "vite build && node -e \"const fs=require('node:fs');fs.copyFileSync('dist/index.html','dist/404.html');fs.closeSync(fs.openSync('dist/.nojekyll','w'))\"",
     "dev": "vite"
   },
   "dependencies": {
