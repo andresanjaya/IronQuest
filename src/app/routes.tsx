@@ -12,25 +12,34 @@ import { ProgramDetail } from "./components/ProgramDetail";
 import { ExerciseDetail } from "./components/ExerciseDetail";
 import { TrainingCalendar } from "./components/TrainingCalendar";
 
-export const router = createBrowserRouter([
+const routerBaseName = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL.slice(0, -1)
+  : import.meta.env.BASE_URL;
+
+export const router = createBrowserRouter(
+  [
+    {
+      path: "/login",
+      Component: Login,
+    },
+    {
+      path: "/",
+      Component: ProtectedLayout,
+      children: [
+        { index: true, Component: Dashboard },
+        { path: "workout", Component: ActiveWorkout },
+        { path: "skills", Component: SkillTree },
+        { path: "calendar", Component: TrainingCalendar },
+        { path: "history", Component: History },
+        { path: "exercises", Component: ExerciseLibrary },
+        { path: "exercises/:exerciseId", Component: ExerciseDetail },
+        { path: "favorites", Component: Favorites },
+        { path: "programs", Component: Programs },
+        { path: "programs/:id", Component: ProgramDetail },
+      ],
+    },
+  ],
   {
-    path: "/login",
-    Component: Login,
-  },
-  {
-    path: "/",
-    Component: ProtectedLayout,
-    children: [
-      { index: true, Component: Dashboard },
-      { path: "workout", Component: ActiveWorkout },
-      { path: "skills", Component: SkillTree },
-      { path: "calendar", Component: TrainingCalendar },
-      { path: "history", Component: History },
-      { path: "exercises", Component: ExerciseLibrary },
-      { path: "exercises/:exerciseId", Component: ExerciseDetail },
-      { path: "favorites", Component: Favorites },
-      { path: "programs", Component: Programs },
-      { path: "programs/:id", Component: ProgramDetail },
-    ],
-  },
-]);
+    basename: routerBaseName,
+  }
+);

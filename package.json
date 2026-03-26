@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
+    "build:pages": "vite build && node -e \"const fs=require('node:fs');fs.copyFileSync('dist/index.html','dist/404.html')\"",
     "dev": "vite"
   },
   "dependencies": {
